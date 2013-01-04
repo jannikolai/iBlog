@@ -16,7 +16,7 @@ class Entry < ActiveRecord::Base
 
   def tags_as_string=(tags_as_string)
     tags.destroy_all
-    self.tags = tags_as_string.split(' ').map { |t| Tag.new(:name => t) }
+    self.tags = tags_as_string.split(/,? /).map { |t| Tag.new(:name => t) }
   end
 
   before_save :regenerate_html
