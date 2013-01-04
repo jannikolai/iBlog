@@ -1,4 +1,4 @@
-<%= content_for :title, "Eintrag bearbeiten" %>
+<%= content_for :title, "Eintrag #{@entry.new_record? ? 'erstellen' : 'bearbeiten'}" %>
 <h2><%= @blog.name %></h2>
 
 <% if @preview %>
