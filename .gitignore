@@ -1,5 +1,7 @@
 log/**
+db/dev.sqlite
 db/development.sqlite3
+db/test.sqlite
 tmp/*
 public/assets
 config/database.yml
