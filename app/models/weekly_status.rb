@@ -33,9 +33,8 @@ class WeeklyStatus < ActiveRecord::Base
   end
 
   def self.by_week(week)
-    start_time = (Time.now.beginning_of_year + week.to_i.weeks).beginning_of_week
-    where('created_at >= :start AND created_at <= :end',
-      { :start => start_time, :end => start_time.end_of_week })
+    week_date = Time.now.beginning_of_year + week.to_i.weeks
+    by_week_with_date(week_date)
   end
 
   def self.search(query)
@@ -50,4 +49,21 @@ class WeeklyStatus < ActiveRecord::Base
   def regenerate_html
     self.status_html = md_to_html(status)
   end
+
+  def self.statuses_in_previous_week(current_week)
+    week_date = Time.now.beginning_of_year + current_week.to_i.weeks - 1.week
+    by_week_with_date(week_date)
+  end
+
+  def self.statuses_in_next_week(current_week)
+    week_date = Time.now.beginning_of_year + current_week.to_i.weeks + 1.week
+    by_week_with_date(week_date)
+  end
+
+  private
+  def self.by_week_with_date(date_in_week)
+    where('created_at >= :start AND created_at <= :end',
+          { :start => date_in_week.beginning_of_week, :end => date_in_week.end_of_week })
+  end
+
 end

@@ -2,3 +2,20 @@
 <h1><%= "Alle Wochenstatus für KW #{params[:week]}" %></h1>
 
 <%= render @statuses %>
+
+<% if @previous_week_statuses || @next_week_statuses %>
+<div class="pagination">
+  <ul>
+<% if @previous_week_statuses %>
+    <li class="previous_page">
+      <%= link_to raw("&lsaquo;"), weekly_statuses_by_week_path(:week => @previous_week_statuses.to_s.rjust(2,'0')) %>
+    </li>
+<% end %>
+<% if @next_week_statuses %>
+    <li class="next_page">
+      <%= link_to raw("&rsaquo;"), weekly_statuses_by_week_path(:week => @next_week_statuses.to_s.rjust(2,'0')) %>
+    </li>
+<% end %>
+  </ul>
+</div>
+<% end %>

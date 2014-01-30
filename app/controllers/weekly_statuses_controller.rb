@@ -36,6 +36,13 @@ class WeeklyStatusesController < ApplicationController
 
   def by_week
     @statuses = WeeklyStatus.by_week(params[:week]).recent
+    if params[:week].to_i > 1 && WeeklyStatus.statuses_in_previous_week(params[:week]).count > 0
+      @previous_week_statuses = params[:week].to_i - 1
+    end
+    count_cw = Date.today.end_of_year.beginning_of_week.strftime("%W").to_i
+    if params[:week].to_i < count_cw && WeeklyStatus.statuses_in_next_week(params[:week]).count > 0
+      @next_week_statuses = params[:week].to_i + 1
+    end
 
     respond_to do |format|
       format.html
