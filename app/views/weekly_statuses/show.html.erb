@@ -1,4 +1,5 @@
 <%= content_for :title, @status.title %>
+<h1><%= "Wochenstatus für KW #{@status.created_at.strftime("%W")}" %></h1>
 <%= render @status %>
 
 <ol class="comments unstyled">
